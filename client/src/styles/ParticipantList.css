@@ -1,0 +1,47 @@
+.participant-list {
+  margin: 20px;
+}
+
+.participant-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.participant-table th,
+.participant-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.participant-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.participant-table tr:hover {
+  background-color: #f9f9f9;
+}
+
+.btn-edit {
+  background-color: #4caf50;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.btn-delete {
+  background-color: #f44336;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+}
