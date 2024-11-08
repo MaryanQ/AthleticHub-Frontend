@@ -5,7 +5,7 @@ import {
   deleteParticipant,
   searchParticipantsByName,
 } from "../service/apiFacade";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../styles/ParticipantList.css";
 
 const ParticipantList: React.FC = () => {
@@ -45,6 +45,10 @@ const ParticipantList: React.FC = () => {
     navigate(`/edit-participant/${id}`);
   };
 
+  const handleAdd = () => {
+    navigate("/participants/new"); // Navigate to add participant form
+  };
+
   const handleSearch = async () => {
     if (searchTerm) {
       try {
@@ -68,6 +72,7 @@ const ParticipantList: React.FC = () => {
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
+      <button onClick={handleAdd}>Add Participant</button>{" "}
       <button onClick={handleSearch}>Search</button>
       {error && <p className="error">{error}</p>}
       <table>
@@ -84,7 +89,9 @@ const ParticipantList: React.FC = () => {
           {participants.map((participant) => (
             <tr key={participant.id}>
               <td>
-                {participant.firstName} {participant.lastName}
+                <Link to={`/participants/${participant.id}`}>
+                  {participant.firstName} {participant.lastName}
+                </Link>
               </td>
               <td>{participant.gender}</td>
               <td>{participant.age}</td>

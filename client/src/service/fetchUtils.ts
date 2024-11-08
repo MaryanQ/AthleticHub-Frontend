@@ -22,13 +22,18 @@ export function makeOptions(method: string, body: object | null): RequestInit {
  * Utility Method to handle http-errors returned as a JSON-response with fetch
  * Meant to be used in the first .then() clause after a fetch-call
  */
-export async function handleHttpErrors(res: Response) {
-  if (!res.ok) {
-    const errorResponse = await res.json();
-    const msg = errorResponse.message
-      ? errorResponse.message
-      : "No details provided";
-    throw new Error(msg);
+export const handleHttpErrors = async (response: Response) => {
+  if (!response.ok) {
+    const errorText = await response.text(); // Fetch error text
+    console.error("Error response text:", errorText); // Log the error for debugging
+    throw new Error(response.statusText || "Unknown error");
   }
-  return res.json();
-}
+
+  // Check if response body is empty before parsing JSON
+  const contentType = response.headers.get("content-type");
+  if (contentType && contentType.includes("application/json")) {
+    return response.json();
+  }
+
+  return null; // Return null if there’s no JSON body
+};

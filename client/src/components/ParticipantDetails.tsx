@@ -8,7 +8,17 @@ const ParticipantDetails = () => {
   const [participant, setParticipant] = useState<Participant | null>(null);
 
   useEffect(() => {
-    if (id) getParticipantById(parseInt(id)).then(setParticipant);
+    if (id) {
+      getParticipantById(parseInt(id))
+        .then((data) => {
+          if (data) {
+            setParticipant(data);
+          } else {
+            console.error("Participant not found");
+          }
+        })
+        .catch((error) => console.error("Error fetching participant:", error));
+    }
   }, [id]);
 
   if (!participant) return <p>Loading...</p>;
@@ -18,23 +28,62 @@ const ParticipantDetails = () => {
       <h2>
         {participant.firstName} {participant.lastName}
       </h2>
-      <p>Gender: {participant.gender}</p>
-      <p>Age: {participant.age}</p>
-      <p>Club: {participant.club}</p>
+      <p>
+        <strong>Gender:</strong> {participant.gender}
+      </p>
+      <p>
+        <strong>Age:</strong> {participant.age}
+      </p>
+      <p>
+        <strong>Club:</strong> {participant.club}
+      </p>
+      <p>
+        <strong>Age Group:</strong> {participant.ageGroup}
+      </p>
+
+      {/* Disciplines Section */}
+      {/* Disciplines Section */}
       <h3>Disciplines</h3>
-      <ul>
-        {participant.disciplines.map((discipline) => (
-          <li key={discipline.id}>{discipline.name}</li>
-        ))}
-      </ul>
+      {participant.disciplines && participant.disciplines.length > 0 ? (
+        <ul>
+          {participant.disciplines.map((discipline, index) => (
+            <li key={`${discipline.id}-${index}`}>
+              <p>
+                <strong>Name:</strong> {discipline.name}
+              </p>
+              <p>
+                <strong>Type:</strong> {discipline.resultType}
+              </p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No disciplines available.</p>
+      )}
+
+      {/* Results Section */}
       <h3>Results</h3>
-      <ul>
-        {participant.results.map((result) => (
-          <li key={result.id}>
-            Date: {result.date}, Value: {result.resultValue}
-          </li>
-        ))}
-      </ul>
+      {participant.results.length > 0 ? (
+        <ul>
+          {participant.results.map((result, index) => (
+            <li key={`${result.id}-${index}`}>
+              <p>
+                <strong>Date:</strong> {result.date}
+              </p>
+              <p>
+                <strong>Result Value:</strong> {result.resultValue}
+              </p>
+              {result.discipline && (
+                <p>
+                  <strong>Discipline:</strong> {result.discipline.name}
+                </p>
+              )}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No results available.</p>
+      )}
     </div>
   );
 };

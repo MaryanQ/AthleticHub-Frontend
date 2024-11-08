@@ -12,5 +12,5 @@ export interface Participant {
   club: string;
   ageGroup: AgeGroup;
   results: Result[];
-  disciplines: Discipline[];
+  disciplines?: Discipline[];
 }
