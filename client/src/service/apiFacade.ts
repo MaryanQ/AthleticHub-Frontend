@@ -1,13 +1,13 @@
 import { makeOptions, handleHttpErrors } from "./fetchUtils";
 import { Participant } from "../type/Participant";
-import { Result } from "../type/Result";
+//import { Result } from "../type/Result";
 import { Discipline } from "../type/Discipline";
 //import { Discipline } from "../type/Discipline";
 
 const API_URL = "http://localhost:8081";
 
 const Participant_URL = API_URL + "/api/participants";
-const Result_URL = API_URL + "/api/results";
+//const Result_URL = API_URL + "/api/results";
 const Discipline_URL = API_URL + "/api/disciplines";
 
 export const getAllParticipants = async (): Promise<Participant[]> => {
@@ -31,14 +31,6 @@ export const createParticipant = async (
 };
 
 // Update a participant
-export const updateParticipant = async (
-  id: number,
-  updatedData: Partial<Participant>
-): Promise<Participant> => {
-  const options = makeOptions("PUT", updatedData);
-  const response = await fetch(`${Participant_URL}/${id}`, options);
-  return handleHttpErrors(response);
-};
 
 // Delete a participant
 export const deleteParticipant = async (id: number): Promise<void> => {
@@ -67,82 +59,52 @@ export const listParticipants = async (filters: {
   return handleHttpErrors(response);
 };
 
-// 8. Add a discipline to a participant
-export const addDisciplineToParticipant = async (
-  participantId: number,
-  disciplineId: number
+// updateParticipant
+export const updateParticipant = async (
+  id: number,
+  participant: Participant
 ): Promise<Participant> => {
-  const options = makeOptions("POST", null);
-  const response = await fetch(
-    `${Participant_URL}/${participantId}/disciplines/${disciplineId}`,
-    options
-  );
+  const options = makeOptions("PUT", participant);
+  const response = await fetch(`${Participant_URL}/${id}`, options);
+  return handleHttpErrors(response); // Using handleHttpErrors for error handling
+};
+
+// Fetch all disciplines
+export const getAllDisciplines = async (): Promise<Discipline[]> => {
+  const options = makeOptions("GET", null);
+  const response = await fetch(`${Discipline_URL}`, options);
   return handleHttpErrors(response);
 };
 
-// 9. Add a result for a participant in a specific discipline
-export const addResultToParticipant = async (
-  participantId: number,
-  disciplineId: number,
-  result: Result
-): Promise<Result> => {
-  const options = makeOptions("POST", result);
-  const response = await fetch(
-    `${Participant_URL}/${participantId}/disciplines/${disciplineId}/results`,
-    options
-  );
+// Fetch a discipline by ID
+export const getDisciplineById = async (id: number): Promise<Discipline> => {
+  const options = makeOptions("GET", null);
+  const response = await fetch(`${Discipline_URL}/${id}`, options);
   return handleHttpErrors(response);
 };
 
-export const updateDisciplineForParticipant = async (
-  participantId: number,
-  disciplineId: number,
-  updatedDiscipline: Discipline
+// Add a new discipline
+export const addDiscipline = async (
+  discipline: Discipline
 ): Promise<Discipline> => {
-  const options = makeOptions("PUT", updatedDiscipline);
-  const response = await fetch(
-    `${Discipline_URL}/participants/${participantId}/disciplines/${disciplineId}`,
-    options
-  );
+  const options = makeOptions("POST", discipline);
+  const response = await fetch(`${Discipline_URL}`, options);
   return handleHttpErrors(response);
 };
 
-export const updateResultForParticipant = async (
-  participantId: number,
-  disciplineId: number,
-  resultId: number,
-  updatedResult: Result
-): Promise<Result> => {
-  const options = makeOptions("PUT", updatedResult);
-  const response = await fetch(
-    `${Result_URL}/participants/${participantId}/disciplines/${disciplineId}/results/${resultId}`,
-    options
-  );
+// Update an existing discipline
+export const updateDiscipline = async (
+  id: number,
+  discipline: Discipline
+): Promise<Discipline> => {
+  const options = makeOptions("PUT", discipline);
+  const response = await fetch(`${Discipline_URL}/${id}`, options);
   return handleHttpErrors(response);
 };
 
-// 10. Delete a discipline from a participant
-// apiFacade.ts
-export const deleteDiscipline = async (
-  disciplineId: number,
-  participantId: number
-): Promise<void> => {
+// Delete a discipline
+export const deleteDiscipline = async (id: number): Promise<void> => {
   const options = makeOptions("DELETE", null);
-  const response = await fetch(
-    `${Discipline_URL}/${disciplineId}/participants/${participantId}`,
-    options
-  );
+  const response = await fetch(`${Discipline_URL}/${id}`, options);
   return handleHttpErrors(response);
-};
-
-export const deleteResultForParticipant = async (
-  participantId: number,
-  resultId: number
-): Promise<void> => {
-  const options = makeOptions("DELETE", null); // Configure DELETE request
-  const response = await fetch(
-    `${Result_URL}/${participantId}/participant/${resultId}`,
-    options
-  );
-  return handleHttpErrors(response); // Handle errors if any
 };

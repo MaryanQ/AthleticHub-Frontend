@@ -8,7 +8,7 @@ export interface Participant {
   firstName: string;
   lastName: string;
   gender: Gender;
-  age: number;
+  age: number | undefined;
   club: string;
   ageGroup: AgeGroup;
   results: Result[];

@@ -3,10 +3,13 @@ import Navbar from "./layout/Navbar";
 import ParticipantList from "./components/ParticipantList";
 import ParticipantDetails from "./components/ParticipantDetails";
 import Results from "./components/Results";
-import Disciplines from "./components/Disciplines";
-import CreateParticipantForm from "./form/CreateParticipantForm"; // Updated import for creating a participant
-import EditParticipantForm from "./form/EditParticipantForm"; // Updated import for editing a participant
+import DisciplineList from "./components/DisciplineList"; // Renamed for clarity
+import AddDiscipline from "./forms/AddDiscipline";
+import EditDiscipline from "./forms/EditDiscipline"; // Renamed for clarity
+
 import "./App.css";
+import AddParticipantForm from "./forms/AddParticipant";
+import EditParticipantForm from "./forms/EditParticipantForm";
 
 function App() {
   return (
@@ -16,19 +19,18 @@ function App() {
         <Routes>
           <Route path="/" element={<ParticipantList />} />
           <Route path="/participants" element={<ParticipantList />} />
-          <Route
-            path="/participants/new"
-            element={<CreateParticipantForm />}
-          />{" "}
-          {/* Route for adding a new participant */}
           <Route path="/participants/:id" element={<ParticipantDetails />} />
+          <Route path="/participants/new" element={<AddParticipantForm />} />
           <Route
             path="/edit-participant/:id"
             element={<EditParticipantForm />}
-          />{" "}
-          {/* Route for editing a participant */}
+          />
           <Route path="/results" element={<Results />} />
-          <Route path="/disciplines" element={<Disciplines />} />
+
+          {/* Discipline routes */}
+          <Route path="/disciplines" element={<DisciplineList />} />
+          <Route path="/disciplines/add" element={<AddDiscipline />} />
+          <Route path="/disciplines/edit/:id" element={<EditDiscipline />} />
         </Routes>
       </div>
     </Router>

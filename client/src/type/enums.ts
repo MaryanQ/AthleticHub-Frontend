@@ -2,6 +2,7 @@ export enum ResultType {
   TIME = "TIME",
   DISTANCE = "DISTANCE",
   POINTS = "POINTS",
+  DEFAULT = "DEFAULT",
 }
 
 export enum Gender {

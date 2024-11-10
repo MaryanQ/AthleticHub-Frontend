@@ -1,0 +1,26 @@
+.participant-detail {
+  margin: 20px;
+}
+
+.participant-detail h2,
+.participant-detail h3 {
+  margin-top: 10px;
+  color: #333;
+}
+
+.participant-detail table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.participant-detail th,
+.participant-detail td {
+  padding: 8px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.error {
+  color: red;
+}
