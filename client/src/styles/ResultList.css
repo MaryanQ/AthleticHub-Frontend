@@ -1,0 +1,87 @@
+/* ResultStyles.css */
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.result-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.result-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.result-list li span {
+  font-size: 16px;
+}
+
+.result-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.result-actions button {
+  padding: 6px 12px;
+  font-size: 14px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.result-actions button:first-child {
+  background-color: #4caf50;
+  color: white;
+}
+
+.result-actions button:first-child:hover {
+  background-color: #45a049;
+}
+
+.result-actions button:last-child {
+  background-color: #f44336;
+  color: white;
+}
+
+.result-actions button:last-child:hover {
+  background-color: #e53935;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.button-container a button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button-container a button:hover {
+  background-color: #1976d2;
+}

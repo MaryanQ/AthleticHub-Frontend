@@ -1,13 +1,13 @@
 import { makeOptions, handleHttpErrors } from "./fetchUtils";
 import { Participant } from "../type/Participant";
-//import { Result } from "../type/Result";
+import { Result } from "../type/Result";
 import { Discipline } from "../type/Discipline";
 //import { Discipline } from "../type/Discipline";
 
 const API_URL = "http://localhost:8081";
 
 const Participant_URL = API_URL + "/api/participants";
-//const Result_URL = API_URL + "/api/results";
+const Result_URL = API_URL + "/api/results";
 const Discipline_URL = API_URL + "/api/disciplines";
 
 export const getAllParticipants = async (): Promise<Participant[]> => {
@@ -106,5 +106,45 @@ export const updateDiscipline = async (
 export const deleteDiscipline = async (id: number): Promise<void> => {
   const options = makeOptions("DELETE", null);
   const response = await fetch(`${Discipline_URL}/${id}`, options);
+  return handleHttpErrors(response);
+};
+
+// Search disciplines by name
+export const getFilteredParticipants = async (
+  filters: { [key: string]: string } = {}
+): Promise<Participant[]> => {
+  const query = new URLSearchParams(filters).toString();
+  const response = await fetch(`${Participant_URL}/participants?${query}`);
+  return handleHttpErrors(response);
+};
+
+export const getAllResults = async (): Promise<Result[]> => {
+  const response = await fetch(Result_URL);
+  return handleHttpErrors(response);
+};
+
+export const getResultById = async (id: number): Promise<Result> => {
+  const response = await fetch(`${Result_URL}/${id}`);
+  return handleHttpErrors(response);
+};
+
+export const createResult = async (result: Result): Promise<Result> => {
+  const options = makeOptions("POST", result);
+  const response = await fetch(Result_URL, options);
+  return handleHttpErrors(response);
+};
+
+export const updateResult = async (
+  id: number,
+  result: Result
+): Promise<Result> => {
+  const options = makeOptions("PUT", result);
+  const response = await fetch(`${Result_URL}/${id}`, options);
+  return handleHttpErrors(response);
+};
+
+export const deleteResult = async (id: number): Promise<void> => {
+  const options = makeOptions("DELETE", null);
+  const response = await fetch(`${Result_URL}/${id}`, options);
   return handleHttpErrors(response);
 };

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Participant } from "../type/Participant";
 import { getParticipantById } from "../service/apiFacade";
+import { ResultType } from "../type/enums";
 import "../styles/PaticipantDetails.css";
 
 const ParticipantDetails: React.FC = () => {
@@ -22,6 +23,22 @@ const ParticipantDetails: React.FC = () => {
 
     if (id) fetchParticipant();
   }, [id]);
+
+  const formatResultValue = (resultValue: number, resultType: ResultType) => {
+    if (resultType === ResultType.TIME) {
+      const totalMilliseconds = resultValue;
+      const hours = Math.floor(totalMilliseconds / 3600000);
+      const minutes = Math.floor((totalMilliseconds % 3600000) / 60000);
+      const seconds = Math.floor((totalMilliseconds % 60000) / 1000);
+      const hundredths = Math.floor((totalMilliseconds % 1000) / 10);
+      return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}.${String(hundredths).padStart(2, "0")}`;
+    } else if (resultType === ResultType.DISTANCE) {
+      const meters = Math.floor(resultValue);
+      const centimeters = Math.floor((resultValue - meters) * 100);
+      return `${meters} m ${centimeters} cm`;
+    }
+    return resultValue.toString();
+  };
 
   if (error) return <p className="error">{error}</p>;
 
@@ -72,7 +89,12 @@ const ParticipantDetails: React.FC = () => {
                 {participant.results.map((result) => (
                   <tr key={result.id}>
                     <td>{result.date}</td>
-                    <td>{result.resultValue}</td>
+                    <td>
+                      {formatResultValue(
+                        result.resultValue,
+                        result.discipline?.resultType || ResultType.TIME
+                      )}
+                    </td>
                   </tr>
                 ))}
               </tbody>

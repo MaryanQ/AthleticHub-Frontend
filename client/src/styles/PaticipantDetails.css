@@ -1,26 +1,60 @@
 .participant-detail {
-  margin: 20px;
+  font-family: "Arial", sans-serif;
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
 }
 
-.participant-detail h2,
+.participant-detail h2 {
+  text-align: center;
+  color: #2c3e50;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.participant-detail p {
+  font-size: 18px;
+  color: #34495e;
+  margin: 6px 0;
+}
+
 .participant-detail h3 {
-  margin-top: 10px;
-  color: #333;
+  margin-top: 25px;
+  color: #2c3e50;
+  font-size: 24px;
+  font-weight: 600;
+  border-bottom: 2px solid #2c3e50;
+  padding-bottom: 5px;
+  margin-bottom: 15px;
 }
 
-.participant-detail table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
+.info-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.participant-detail th,
-.participant-detail td {
-  padding: 8px;
-  border: 1px solid #ddd;
-  text-align: left;
+.info-list li {
+  padding: 15px;
+  margin-bottom: 10px;
+  background-color: #f4f6f8;
+  border-radius: 8px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.label {
+  font-weight: bold;
+  color: #2c3e50;
 }
 
 .error {
-  color: red;
+  color: #e74c3c;
+  text-align: center;
+  font-weight: 600;
+  font-size: 18px;
+  margin-top: 20px;
 }
